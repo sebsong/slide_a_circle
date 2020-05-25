@@ -1,4 +1,4 @@
-default: build ru
+default: build run
 
 build:
 	mkdir -p build
