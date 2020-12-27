@@ -15,7 +15,13 @@ static float getVectorMagnitude(const sf::Vector2<T>& vector)
 template <class T>
 static sf::Vector2<T> getNormalizedVector(const sf::Vector2<T> vector)
 {
-    return vector / getVectorMagnitude(vector);
+    float magnitude{getVectorMagnitude(vector)};
+    if (magnitude == 0)
+    {
+        return vector;
+    }
+
+    return vector / magnitude;
 }
 
 static void moveTowardPoint(sf::Transformable& toMove, const sf::Vector2f& point, const float& speed)
@@ -50,7 +56,7 @@ int main()
 
     sf::Vector2f movementPoint;
     bool inMotion = false;
-    const float speed = 10.f;
+    const float speed = 20.f;
 
     // main game loop
     while (window.isOpen())
