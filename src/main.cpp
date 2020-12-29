@@ -1,21 +1,18 @@
 // author: seb
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include <iostream>
 #include <cmath>
+
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+
+#include <sebgine/Utils.hpp>
 
 const std::string GAME_NAME{"slide_a_circle"};
 
 template <class T>
-static float getVectorMagnitude(const sf::Vector2<T>& vector)
-{
-    return sqrt(pow(vector.x, 2) + pow(vector.y, 2));
-}
-
-template <class T>
 static sf::Vector2<T> getNormalizedVector(const sf::Vector2<T> vector)
 {
-    float magnitude{getVectorMagnitude(vector)};
+    float magnitude{seb::getVectorMagnitude(vector)};
     if (magnitude == 0)
     {
         return vector;
@@ -30,7 +27,7 @@ static void moveTowardPoint(sf::Transformable& toMove, const sf::Vector2f& point
     sf::Vector2f dir{point - currPos};
     sf::Vector2f movementVector{getNormalizedVector(dir) * speed};
 
-    if (getVectorMagnitude(movementVector) > getVectorMagnitude(dir))
+    if (seb::getVectorMagnitude(movementVector) > seb::getVectorMagnitude(dir))
     {
         toMove.setPosition(point);
     } else
@@ -43,8 +40,6 @@ int main()
 {
     sf::VideoMode fullScreenVideoMode{sf::VideoMode::getFullscreenModes()[0]};
     sf::RenderWindow window(fullScreenVideoMode, GAME_NAME, sf::Style::Fullscreen);
-    const unsigned int windowXCenter{window.getSize().x / 2};
-    const unsigned int windowYCenter{window.getSize().y / 2};
 
     // setup circle
     sf::CircleShape circle(50.f);

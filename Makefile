@@ -1,9 +1,16 @@
+SEBGINE_DIR = ${HOME}/Workspace/sfml/sebgine
+SEBGINE_INCLUDE_DIR = ${SEBGINE_DIR}/include
+SEBGINE_LIB_DIR = ${SEBGINE_DIR}/lib
+SEBGINE_LIBRARIES = -lsebgine-utils
+
+SFML_LIBRARIES = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+
 default: build run
 
 build:
 	mkdir -p build
-	g++ -std=c++11 -c src/main.cpp -o build/main.o
-	g++ build/main.o -o build/slide_a_circle -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+	g++ -Wall -W -std=c++11 -I ${SEBGINE_INCLUDE_DIR} -L ${SEBGINE_LIB_DIR} -rpath ${SEBGINE_LIB_DIR} src/main.cpp -o build/slide_a_circle ${SFML_LIBRARIES} ${SEBGINE_LIBRARIES}
+
 
 run:
 	./build/slide_a_circle
@@ -11,4 +18,4 @@ run:
 clean:
 	rm -f build/*
 
-.PHONY: build clean
+.PHONY: build run clean
