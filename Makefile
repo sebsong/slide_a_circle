@@ -3,7 +3,7 @@ SEBGINE_INCLUDE_DIR = ${SEBGINE_DIR}/include
 SEBGINE_LIB_DIR = ${SEBGINE_DIR}/lib
 SEBGINE_LIBRARIES = -lsebgine-utils
 
-SFML_LIBRARIES = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+SFML_LIBRARIES = -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio
 
 default: build run
 
