@@ -11,7 +11,6 @@ build:
 	mkdir -p build
 	g++ -Wall -W -std=c++11 -I ${SEBGINE_INCLUDE_DIR} -L ${SEBGINE_LIB_DIR} -rpath ${SEBGINE_LIB_DIR} src/main.cpp -o build/slide_a_circle ${SFML_LIBRARIES} ${SEBGINE_LIBRARIES}
 
-
 run:
 	./build/slide_a_circle
 
