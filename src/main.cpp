@@ -9,15 +9,9 @@
 const std::string GAME_NAME{"slide_a_circle"};
 
 template <class T>
-static float getVectorMagnitude(const sf::Vector2<T>& vector)
-{
-    return sqrt(pow(vector.x, 2) + pow(vector.y, 2));
-}
-
-template <class T>
 static sf::Vector2<T> getNormalizedVector(const sf::Vector2<T> vector)
 {
-    float magnitude{getVectorMagnitude(vector)};
+    float magnitude{seb::getVectorMagnitude(vector)};
     if (magnitude == 0)
     {
         return vector;
@@ -32,7 +26,7 @@ static void moveTowardPoint(sf::Transformable& toMove, const sf::Vector2f& point
     sf::Vector2f dir{point - currPos};
     sf::Vector2f movementVector{getNormalizedVector(dir) * speed};
 
-    if (getVectorMagnitude(movementVector) > getVectorMagnitude(dir))
+    if (seb::getVectorMagnitude(movementVector) > seb::getVectorMagnitude(dir))
     {
         toMove.setPosition(point);
     } else
@@ -115,8 +109,6 @@ int main()
         window.draw(circle);
         window.display();
     }
-
-    seb::testFunc();
 
     return 0;
 }
