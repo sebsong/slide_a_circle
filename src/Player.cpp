@@ -1,4 +1,3 @@
-#include <SFML/Graphics.hpp>
 #include <sebgine/utils/VectorUtils.hpp>
 
 #include <Player.hpp>
@@ -11,63 +10,57 @@ sf::CircleShape circle(50.f);
     circle.setOrigin(circleRadius, circleRadius);
 }
 
-void Player::update()
+void Player::update(sf::Event* event, sf::RenderWindow* window)
 {
-    // maybe update needs to take in some input
-    // handle events
-    sf::Event event;
-    while (window.pollEvent(event))
+    switch(event->type)
     {
-        switch(event.type)
-        {
-            case sf::Event::MouseButtonPressed: // mouse controls
-                switch(event.mouseButton.button)
+        case sf::Event::MouseButtonPressed: // mouse controls
+            switch(event->mouseButton.button)
+            {
+                case sf::Mouse::Left:
                 {
-                    case sf::Mouse::Left:
+                    if (!inMotion)
                     {
-                        if (!inMotion)
-                        {
-                            movementPoint = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-                            inMotion = true;
-                        }
-                        break;
+                        movementPoint = &window->mapPixelToCoords(sf::Mouse::getPosition(*window));
+                        inMotion = true;
                     }
-                    default:
-                        break;
+                    break;
                 }
-            default:
-                break;
+                default:
+                    break;
+            }
+        default:
+            break;
 
-        }
     }
 
     if (inMotion)
     {
         moveTowardPoint(circle, movementPoint, speed);
-        if (circle.getPosition() == movementPoint)
+        if (circle.getPosition() == *movementPoint)
         {
             inMotion = false;
         }
     }
 }
 
-void Player::render()
+void Player::render(sf::RenderWindow* window)
 {
     // maybe render needs to take in a window object
-    window.draw(circle);
+    window->draw(circle);
 }
 
-static void moveTowardPoint(sf::Transformable& toMove, const sf::Vector2f& point, const float& speed)
+static void moveTowardPoint(sf::Transformable* toMove, const sf::Vector2f* point, const float& speed)
 {
-    sf::Vector2f currPos{toMove.getPosition()};
-    sf::Vector2f dir{point - currPos};
+    sf::Vector2f currPos{toMove->getPosition()};
+    sf::Vector2f dir{*point - currPos};
     sf::Vector2f movementVector{seb::getNormalizedVector(dir) * speed};
 
     if (seb::getVectorMagnitude(movementVector) > seb::getVectorMagnitude(dir))
     {
-        toMove.setPosition(point);
+        toMove->setPosition(*point);
     } else
     {
-        toMove.move(movementVector);
+        toMove->move(movementVector);
     }
 }
