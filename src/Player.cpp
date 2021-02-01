@@ -1,14 +1,32 @@
 #include <sebgine/utils/VectorUtils.hpp>
 
-#include <Player.hpp>
+#include "Player.hpp"
 
-// setup circle
-sf::CircleShape circle(50.f);
+static void moveTowardPoint(sf::Transformable* toMove, const sf::Vector2f& point, const float& speed)
 {
-    circle.setFillColor(sf::Color::Blue);
-    const float circleRadius{circle.getRadius()};
-    circle.setOrigin(circleRadius, circleRadius);
+    sf::Vector2f currPos{toMove->getPosition()};
+    sf::Vector2f dir{point - currPos};
+    sf::Vector2f movementVector{seb::getNormalizedVector(dir) * speed};
+
+    if (seb::getVectorMagnitude(movementVector) > seb::getVectorMagnitude(dir))
+    {
+        toMove->setPosition(point);
+    } else
+    {
+        toMove->move(movementVector);
+    }
 }
+
+Player::Player()
+{
+    // setup circle
+    sf::CircleShape* circle = new sf::CircleShape(50.f);
+    circle->setFillColor(sf::Color::Blue);
+    const float circleRadius{circle->getRadius()};
+    circle->setOrigin(circleRadius, circleRadius);
+    shape = circle;
+}
+
 
 void Player::update(sf::Event* event, sf::RenderWindow* window)
 {
@@ -21,7 +39,7 @@ void Player::update(sf::Event* event, sf::RenderWindow* window)
                 {
                     if (!inMotion)
                     {
-                        movementPoint = &window->mapPixelToCoords(sf::Mouse::getPosition(*window));
+                        movementPoint = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
                         inMotion = true;
                     }
                     break;
@@ -36,8 +54,8 @@ void Player::update(sf::Event* event, sf::RenderWindow* window)
 
     if (inMotion)
     {
-        moveTowardPoint(circle, movementPoint, speed);
-        if (circle.getPosition() == *movementPoint)
+        moveTowardPoint(shape, movementPoint, speed);
+        if (shape->getPosition() == movementPoint)
         {
             inMotion = false;
         }
@@ -47,20 +65,5 @@ void Player::update(sf::Event* event, sf::RenderWindow* window)
 void Player::render(sf::RenderWindow* window)
 {
     // maybe render needs to take in a window object
-    window->draw(circle);
-}
-
-static void moveTowardPoint(sf::Transformable* toMove, const sf::Vector2f* point, const float& speed)
-{
-    sf::Vector2f currPos{toMove->getPosition()};
-    sf::Vector2f dir{*point - currPos};
-    sf::Vector2f movementVector{seb::getNormalizedVector(dir) * speed};
-
-    if (seb::getVectorMagnitude(movementVector) > seb::getVectorMagnitude(dir))
-    {
-        toMove->setPosition(*point);
-    } else
-    {
-        toMove->move(movementVector);
-    }
+    window->draw(*shape);
 }

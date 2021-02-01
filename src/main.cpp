@@ -6,12 +6,16 @@
 
 #include <sebgine/Utils.hpp>
 
+#include "Player.hpp"
+
 const std::string GAME_NAME{"slide_a_circle"};
 
 int main()
 {
     sf::VideoMode fullScreenVideoMode{sf::VideoMode::getFullscreenModes()[0]};
     sf::RenderWindow window(fullScreenVideoMode, GAME_NAME, sf::Style::Fullscreen);
+
+    Player* player = new Player();
 
     // main game loop
     while (window.isOpen())
@@ -43,6 +47,8 @@ int main()
 
         // draw to window
         window.clear();
+        // TODO: need to fix this to take in all events? or split out update and handle input
+        player->tick(&event, &window);
         window.display();
     }
 
