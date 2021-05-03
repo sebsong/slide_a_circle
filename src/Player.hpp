@@ -1,14 +1,18 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
-#include <sebgine/entity/VisualEntity.hpp>
+#include <sebgine/entity/ControllableEntity.hpp>
 
-class Player: public seb::VisualEntity
+class Player: public seb::ControllableEntity
 {
     public:
         Player();
-        virtual void update(sf::Event* event, sf::RenderWindow* window);
+        virtual void consumeEvent(sf::Event event);
+
+    protected:
+        virtual void update();
         virtual void render(sf::RenderWindow* window);
+        virtual void input(sf::RenderWindow* window);
 
     private:
         sf::CircleShape* shape;

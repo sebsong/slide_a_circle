@@ -27,19 +27,21 @@ Player::Player()
     shape = circle;
 }
 
-
-void Player::update(sf::Event* event, sf::RenderWindow* window)
+void Player::consumeEvent(sf::Event event)
 {
-    switch(event->type)
+    switch(event.type)
     {
         case sf::Event::MouseButtonPressed: // mouse controls
-            switch(event->mouseButton.button)
+        {
+            sf::Event::MouseButtonEvent mouseButtonEvent = event.mouseButton;
+            switch(mouseButtonEvent.button)
             {
                 case sf::Mouse::Left:
                 {
                     if (!inMotion)
                     {
-                        movementPoint = window->mapPixelToCoords(sf::Mouse::getPosition(*window));
+                        movementPoint.x = mouseButtonEvent.x;
+                        movementPoint.y = mouseButtonEvent.y;
                         inMotion = true;
                     }
                     break;
@@ -47,11 +49,20 @@ void Player::update(sf::Event* event, sf::RenderWindow* window)
                 default:
                     break;
             }
+            break;
+        }
         default:
             break;
 
     }
+}
 
+void Player::input(sf::RenderWindow* window)
+{
+}
+
+void Player::update()
+{
     if (inMotion)
     {
         moveTowardPoint(shape, movementPoint, speed);

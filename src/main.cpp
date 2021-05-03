@@ -1,6 +1,4 @@
 // author: seb
-#include <iostream>
-
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
@@ -43,12 +41,12 @@ int main()
                     break;
 
             }
+            player->consumeEvent(event);
         }
 
         // draw to window
         window.clear();
-        // TODO: need to fix this to take in all events? or split out update and handle input
-        player->tick(&event, &window);
+        player->tick(&window);
         window.display();
     }
 
