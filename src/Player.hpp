@@ -2,12 +2,15 @@
 #include <SFML/Window.hpp>
 
 #include <sebgine/entity/ControllableEntity.hpp>
+#include <sebgine/entity/CircleCollidable.hpp>
 
-class Player: public seb::ControllableEntity
+class Player: public seb::ControllableEntity, public seb::CircleCollidable
 {
     public:
         Player();
         virtual void consumeEvent(sf::Event event);
+        virtual sf::CircleShape* getCircleShape();
+        virtual void handleCollision(seb::CircleCollidable* otherCollidable);
 
     protected:
         virtual void update();

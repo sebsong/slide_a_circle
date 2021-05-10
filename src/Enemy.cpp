@@ -19,5 +19,18 @@ void Enemy::update()
 
 void Enemy::render(sf::RenderWindow* window)
 {
-    window->draw(*shape);
+    if (visible)
+    {
+        window->draw(*shape);
+    }
+}
+
+sf::CircleShape* Enemy::getCircleShape()
+{
+    return shape;
+}
+
+void Enemy::handleCollision(CircleCollidable* otherCollidable)
+{
+    visible = false;
 }

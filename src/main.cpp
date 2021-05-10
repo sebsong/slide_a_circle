@@ -3,6 +3,8 @@
 #include <SFML/Audio.hpp>
 
 #include <sebgine/Utils.hpp>
+#include <sebgine/entity/CircleCollisionDetector.hpp>
+#include <sebgine/entity/CircleCollidable.hpp>
 
 #include "Player.hpp"
 #include "Enemy.hpp"
@@ -16,6 +18,11 @@ int main()
 
     Player* player = new Player();
     Enemy* enemy = new Enemy(&window);
+
+    std::vector<seb::CircleCollidable*>* collidables = new std::vector<seb::CircleCollidable*>();
+    collidables->push_back(player);
+    collidables->push_back(enemy);
+    seb::CircleCollisionDetector* collisionDetector = new seb::CircleCollisionDetector(collidables);
 
     // main game loop
     while (window.isOpen())
@@ -50,6 +57,7 @@ int main()
         window.clear();
         enemy->tick(&window);
         player->tick(&window);
+        collisionDetector->detect();
         window.display();
     }
 

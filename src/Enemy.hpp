@@ -3,11 +3,14 @@
 #include <SFML/System.hpp>
 
 #include <sebgine/entity/VisualEntity.hpp>
+#include <sebgine/entity/CircleCollidable.hpp>
 
-class Enemy: public seb::VisualEntity
+class Enemy: public seb::VisualEntity, public seb::CircleCollidable
 {
     public:
         Enemy(sf::RenderWindow* window);
+        virtual sf::CircleShape* getCircleShape();
+        virtual void handleCollision(seb::CircleCollidable* otherCollidable);
 
     protected:
         virtual void update();
@@ -15,4 +18,5 @@ class Enemy: public seb::VisualEntity
 
     private:
         sf::CircleShape* shape;
+        bool visible = true;
 };

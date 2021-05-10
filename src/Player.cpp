@@ -77,3 +77,12 @@ void Player::render(sf::RenderWindow* window)
 {
     window->draw(*shape);
 }
+
+sf::CircleShape* Player::getCircleShape()
+{
+    return shape;
+}
+
+void Player::handleCollision(CircleCollidable* otherCollidable)
+{
+}
