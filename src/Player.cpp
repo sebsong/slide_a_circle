@@ -75,6 +75,5 @@ void Player::update()
 
 void Player::render(sf::RenderWindow* window)
 {
-    // maybe render needs to take in a window object
     window->draw(*shape);
 }

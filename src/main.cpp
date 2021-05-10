@@ -5,6 +5,7 @@
 #include <sebgine/Utils.hpp>
 
 #include "Player.hpp"
+#include "Enemy.hpp"
 
 const std::string GAME_NAME{"slide_a_circle"};
 
@@ -14,6 +15,7 @@ int main()
     sf::RenderWindow window(fullScreenVideoMode, GAME_NAME, sf::Style::Fullscreen);
 
     Player* player = new Player();
+    Enemy* enemy = new Enemy(&window);
 
     // main game loop
     while (window.isOpen())
@@ -46,6 +48,7 @@ int main()
 
         // draw to window
         window.clear();
+        enemy->tick(&window);
         player->tick(&window);
         window.display();
     }
