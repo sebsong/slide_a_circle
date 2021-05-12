@@ -3,7 +3,7 @@
 #include <SFML/System.hpp>
 
 #include <sebgine/entity/NonPlayerEntity.hpp>
-#include <sebgine/entity/CircleCollidable.hpp>
+#include <sebgine/collision/interfaces/CircleCollidable.hpp>
 
 class Enemy: public seb::NonPlayerEntity, public seb::CircleCollidable
 {

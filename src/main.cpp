@@ -3,8 +3,7 @@
 #include <SFML/Audio.hpp>
 
 #include <sebgine/Utils.hpp>
-#include <sebgine/entity/CircleCollisionDetector.hpp>
-#include <sebgine/entity/CircleCollidable.hpp>
+#include <sebgine/Collision.hpp>
 
 #include "Player.hpp"
 #include "Enemy.hpp"

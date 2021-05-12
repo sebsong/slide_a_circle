@@ -1,7 +1,7 @@
 SEBGINE_DIR = ${HOME}/Workspace/sfml/sebgine
 SEBGINE_INCLUDE_DIR = ${SEBGINE_DIR}/include
 SEBGINE_LIB_DIR = ${SEBGINE_DIR}/lib
-SEBGINE_LIBRARIES = -lsebgine-entity -lsebgine-utils
+SEBGINE_LIBRARIES = -lsebgine-collision -lsebgine-entity -lsebgine-utils
 
 SFML_LIBRARIES = -lsfml-system -lsfml-window -lsfml-graphics -lsfml-audio
 

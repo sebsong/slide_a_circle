@@ -1,8 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include <sebgine/collision/interfaces/CircleCollidable.hpp>
 #include <sebgine/entity/PlayerEntity.hpp>
-#include <sebgine/entity/CircleCollidable.hpp>
 
 class Player: public seb::PlayerEntity, public seb::CircleCollidable
 {
