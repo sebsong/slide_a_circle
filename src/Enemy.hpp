@@ -2,10 +2,10 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 
-#include <sebgine/entity/VisualEntity.hpp>
+#include <sebgine/entity/NonPlayerEntity.hpp>
 #include <sebgine/entity/CircleCollidable.hpp>
 
-class Enemy: public seb::VisualEntity, public seb::CircleCollidable
+class Enemy: public seb::NonPlayerEntity, public seb::CircleCollidable
 {
     public:
         Enemy(sf::RenderWindow* window);

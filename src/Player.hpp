@@ -1,10 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
-#include <sebgine/entity/ControllableEntity.hpp>
+#include <sebgine/entity/PlayerEntity.hpp>
 #include <sebgine/entity/CircleCollidable.hpp>
 
-class Player: public seb::ControllableEntity, public seb::CircleCollidable
+class Player: public seb::PlayerEntity, public seb::CircleCollidable
 {
     public:
         Player();
