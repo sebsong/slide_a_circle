@@ -2,8 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include <sebgine/Utils.hpp>
 #include <sebgine/Collision.hpp>
+#include <sebgine/Entity.hpp>
+#include <sebgine/Utils.hpp>
 
 #include "Player.hpp"
 #include "Enemy.hpp"
@@ -18,10 +19,13 @@ int main()
     Player* player = new Player();
     Enemy* enemy = new Enemy(&window);
 
-    std::vector<seb::CircleCollidable*>* collidables = new std::vector<seb::CircleCollidable*>();
-    collidables->push_back(player);
-    collidables->push_back(enemy);
-    seb::CircleCollisionDetector* collisionDetector = new seb::CircleCollisionDetector(collidables);
+    seb::EntityManager* entityManager = new seb::EntityManager();
+    entityManager->registerEntity(player);
+    entityManager->registerEntity(enemy);
+
+    seb::CircleCollisionDetector* collisionDetector = new seb::CircleCollisionDetector();
+    collisionDetector->registerCollidable(player);
+    collisionDetector->registerCollidable(enemy);
 
     // main game loop
     while (window.isOpen())
@@ -54,8 +58,7 @@ int main()
 
         // draw to window
         window.clear();
-        enemy->tick(&window);
-        player->tick(&window);
+        entityManager->tick(&window);
         collisionDetector->detect();
         window.display();
     }
