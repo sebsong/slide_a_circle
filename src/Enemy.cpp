@@ -1,15 +1,22 @@
 #include "Enemy.hpp"
 
+#include <random>
+
 Enemy::Enemy(sf::RenderWindow* window)
 {
     // setup circle
     sf::CircleShape* circle = new sf::CircleShape(50.f);
     circle->setFillColor(sf::Color::Red);
     const float circleRadius{circle->getRadius()};
-    circle->setOrigin(circleRadius, circleRadius);
+    circle->setOrigin(sf::Vector2f(circleRadius, circleRadius));
     shape = circle;
     const sf::Vector2u windowSize = window->getSize();
-    shape->setPosition(windowSize.x / 2, windowSize.y / 2);
+
+    static std::default_random_engine e;
+    static std::uniform_real_distribution<> disX(0, windowSize.x);
+    static std::uniform_real_distribution<> disY(0, windowSize.y);
+
+    shape->setPosition(sf::Vector2f(disX(e), disY(e)));
 }
 
 void Enemy::update()

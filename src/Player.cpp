@@ -23,7 +23,7 @@ Player::Player()
     sf::CircleShape* circle = new sf::CircleShape(50.f);
     circle->setFillColor(sf::Color::Blue);
     const float circleRadius{circle->getRadius()};
-    circle->setOrigin(circleRadius, circleRadius);
+    circle->setOrigin(sf::Vector2f(circleRadius, circleRadius));
     shape = circle;
 }
 

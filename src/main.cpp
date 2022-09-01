@@ -9,12 +9,15 @@
 #include "Player.hpp"
 #include "Enemy.hpp"
 
+#include <iostream>
+
 const std::string GAME_NAME{"slide_a_circle"};
 
 int main()
 {
-    sf::VideoMode fullScreenVideoMode{sf::VideoMode::getFullscreenModes()[0]};
-    sf::RenderWindow window(fullScreenVideoMode, GAME_NAME, sf::Style::Fullscreen);
+    // std::vector<sf::VideoMode> fullScreenVideoModes{sf::VideoMode::getFullscreenModes()};
+    sf::VideoMode videoMode{sf::VideoMode::getDesktopMode()};
+    sf::RenderWindow window(videoMode, GAME_NAME, sf::Style::Resize);
 
     Player* player = new Player();
     Enemy* enemy = new Enemy(&window);
