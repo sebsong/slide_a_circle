@@ -5,6 +5,8 @@
 #include <sebgine/entity/NonPlayerEntity.hpp>
 #include <sebgine/collision/interfaces/CircleCollidable.hpp>
 
+#include <random>
+
 class Enemy: public seb::NonPlayerEntity, public seb::CircleCollidable
 {
     public:
@@ -18,5 +20,8 @@ class Enemy: public seb::NonPlayerEntity, public seb::CircleCollidable
 
     private:
         sf::CircleShape* shape;
-        bool visible = true;
+        std::default_random_engine e;
+        std::uniform_real_distribution<>* disX;
+        std::uniform_real_distribution<>* disY;
+        bool isDead = true;
 };

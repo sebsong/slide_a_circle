@@ -4,7 +4,8 @@
             "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${HOME}/Workspace/sfml/sebgine/include"
+                "${HOME}/Workspace/sfml/sebgine/include",
+                "/usr/local/include/**"
             ],
             "defines": [],
             "macFrameworkPath": [],

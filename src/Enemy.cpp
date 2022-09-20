@@ -1,6 +1,6 @@
 #include "Enemy.hpp"
 
-#include <random>
+#include <iostream>
 
 Enemy::Enemy(sf::RenderWindow* window)
 {
@@ -12,21 +12,22 @@ Enemy::Enemy(sf::RenderWindow* window)
     shape = circle;
     const sf::Vector2u windowSize = window->getSize();
 
-    static std::default_random_engine e;
-    static std::uniform_real_distribution<> disX(0, windowSize.x);
-    static std::uniform_real_distribution<> disY(0, windowSize.y);
-
-    shape->setPosition(sf::Vector2f(disX(e), disY(e)));
+    disX = new std::uniform_real_distribution<>(0, windowSize.x);
+    disY = new std::uniform_real_distribution<>(0, windowSize.y);
 }
 
 void Enemy::update()
 {
-
+    if(isDead)
+    {
+        shape->setPosition(sf::Vector2f((*disX)(e), (*disY)(e)));
+        isDead = false;
+    }
 }
 
 void Enemy::render(sf::RenderWindow* window)
 {
-    if (visible)
+    if (!isDead)
     {
         window->draw(*shape);
     }
@@ -39,5 +40,5 @@ sf::CircleShape* Enemy::getCircleShape()
 
 void Enemy::handleCollision(CircleCollidable* otherCollidable)
 {
-    visible = false;
+    isDead = true;
 }

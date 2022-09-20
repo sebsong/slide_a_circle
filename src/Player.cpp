@@ -2,21 +2,6 @@
 
 #include "Player.hpp"
 
-static void moveTowardPoint(sf::Transformable* toMove, const sf::Vector2f& point, const float& speed)
-{
-    sf::Vector2f currPos{toMove->getPosition()};
-    sf::Vector2f dir{point - currPos};
-    sf::Vector2f movementVector{seb::getNormalizedVector(dir) * speed};
-
-    if (seb::getVectorMagnitude(movementVector) > seb::getVectorMagnitude(dir))
-    {
-        toMove->setPosition(point);
-    } else
-    {
-        toMove->move(movementVector);
-    }
-}
-
 Player::Player()
 {
     // setup circle
@@ -38,11 +23,11 @@ void Player::consumeEvent(sf::Event event)
             {
                 case sf::Mouse::Left:
                 {
-                    if (!inMotion)
+                    if (velocity <= 0)
                     {
-                        movementPoint.x = mouseButtonEvent.x;
-                        movementPoint.y = mouseButtonEvent.y;
-                        inMotion = true;
+                        const sf::Vector2f mousePosition{static_cast<float>(mouseButtonEvent.x), static_cast<float>(mouseButtonEvent.y)};
+                        direction = mousePosition - shape->getPosition();
+                        velocity = initialVelocity;
                     }
                     break;
                 }
@@ -61,16 +46,23 @@ void Player::input(sf::RenderWindow* window)
 {
 }
 
-void Player::update()
+void Player::move()
 {
-    if (inMotion)
+    if (velocity > 0)
     {
-        moveTowardPoint(shape, movementPoint, speed);
-        if (shape->getPosition() == movementPoint)
+        sf::Vector2f movementVector{seb::getNormalizedVector(direction) * velocity};
+        shape->move(movementVector);
+        velocity *= velocityDecayRate;
+        if (velocity < minVelocity)
         {
-            inMotion = false;
+            velocity = 0.f;
         }
     }
+}
+
+void Player::update()
+{
+    move();
 }
 
 void Player::render(sf::RenderWindow* window)

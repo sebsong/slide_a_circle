@@ -18,8 +18,12 @@ class Player: public seb::PlayerEntity, public seb::CircleCollidable
         virtual void input(sf::RenderWindow* window);
 
     private:
+        virtual void move();
+
         sf::CircleShape* shape;
-        sf::Vector2f movementPoint;
-        bool inMotion = false;
-        const float speed = 20.f;
+        sf::Vector2f direction;
+        float initialVelocity = 2;
+        float velocity;
+        float velocityDecayRate = 0.997;
+        const float minVelocity = 0.1;
 };
